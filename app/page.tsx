@@ -283,7 +283,7 @@ export default function Home() {
               <h4 className="text-sm font-medium uppercase tracking-wider text-white">Connect</h4>
               <div className="mt-4 flex space-x-4">
                 <Link
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/otmane_ezz"
                   className="text-stone-400 hover:text-gold-400 transition-colors duration-200"
                 >
                   <Instagram className="h-5 w-5" />
@@ -296,6 +296,20 @@ export default function Home() {
                   <Facebook className="h-5 w-5" />
                   <span className="sr-only">Facebook</span>
                 </Link>
+                <Link
+  href="https://wa.me/212630537553"
+  className="text-stone-400 hover:text-gold-400 transition-colors duration-200"
+>
+  <span className="sr-only">WhatsApp</span>
+  <svg
+    className="h-5 w-5"
+    fill="currentColor"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path d="M20.52 3.48a11.87 11.87 0 00-16.8 0 11.87 11.87 0 000 16.8l-.88 3.19a1 1 0 001.24 1.24l3.19-.88a11.87 11.87 0 0016.8-16.8zM12 21a9 9 0 01-5.23-1.66l-.37-.25-1.9.52.52-1.9-.25-.37A9 9 0 1121 12a9 9 0 01-9 9zm4.2-6.8c-.23-.12-1.35-.67-1.56-.75s-.36-.12-.51.12-.59.75-.72.9-.27.18-.51.06a7.34 7.34 0 01-2.16-1.32 8.24 8.24 0 01-1.53-1.9c-.15-.27 0-.42.12-.54s.27-.3.39-.45a1.78 1.78 0 00.27-.45.48.48 0 000-.48c-.06-.12-.51-1.23-.69-1.68s-.36-.42-.51-.42-.3 0-.45 0a.87.87 0 00-.63.3 2.64 2.64 0 00-.84 1.98c0 1.17.84 2.28.96 2.43s1.65 2.52 4.05 3.54a13.66 13.66 0 001.32.48 3.18 3.18 0 001.44.09 2.52 2.52 0 001.65-1.17 2.1 2.1 0 00.15-1.17c-.06-.12-.21-.18-.45-.3z" />
+  </svg>
+</Link>
               </div>
               <div className="mt-6">
                 <h4 className="text-sm font-medium uppercase tracking-wider text-white">Visit Us</h4>
