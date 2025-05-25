@@ -5,6 +5,8 @@ import Link from "next/link"
 import { ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useStore } from "@/lib/store"
+import { useEffect, useState } from "react"
+
 
 type Product = {
   id: string
@@ -19,16 +21,20 @@ type Product = {
 
 }
 
-  export default async function CollectionsPage() {
-  const res = await fetch("http://localhost:3000/api/products", {
-    cache: "no-store",
-  })
-  
-  const products: Product[] = await res.json()
+  export default function CollectionsPage() {
+  const [products, setProducts] = useState<Product[]>([])
 
-  const featuredProducts = products.filter((product) => product.inStock).slice(0, 8)
+  useEffect(() => {
+    const loadProducts = async () => {
+      const res = await fetch("/api/products")
+      const data = await res.json()
+      setProducts(data)
+    }
+    loadProducts()
+  }, [])
 
- 
+  const featuredProducts = products.filter(p => p.inStock).slice(0, 8)
+
 
 
   // Get featured products
