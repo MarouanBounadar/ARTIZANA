@@ -74,8 +74,8 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-medium text-stone-800">Call Us</h3>
                     <p className="mt-1 text-stone-600">
-                      <a href="tel:+212500000000" className="hover:text-amber-700">
-                        +212 5 00 00 00 00
+                      <a href="tel:+212 630-537553" className="hover:text-amber-700">
+                        +212 630-537553
                       </a>
                     </p>
                     <p className="mt-1 text-stone-600">Available Monday to Friday, 9am - 5pm (GMT+1)</p>
