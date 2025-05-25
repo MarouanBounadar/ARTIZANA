@@ -147,12 +147,15 @@ export function Navbar() {
 
         <div className="mt-auto">
           <div className="flex space-x-4">
-            <Link href="https://instagram.com" className="text-white hover:text-amber-200">
+            <Link href="https://www.instagram.com/otmane_ezz" className="text-white hover:text-amber-200">
               Instagram
             </Link>
             <Link href="https://facebook.com" className="text-white hover:text-amber-200">
               Facebook
             </Link>
+            <Link href="https://wa.me/212630537553" target="_blank" rel="noopener noreferrer">
+  WhatsApp
+</Link>
           </div>
           <div className="mt-6">
             <p className="text-sm text-stone-400">123 Rue des Artisans, Medina, Marrakech, Morocco</p>
