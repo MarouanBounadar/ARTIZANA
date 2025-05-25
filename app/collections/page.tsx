@@ -47,8 +47,8 @@ type Product = {
         <Image
   src="/images/LOGO1.png"
   alt="Logo top-left"
-  width={200}
-  height={80}
+  width={120}
+  height={60}
   className="absolute top-4 left-4 opacity-100 z-10 "
 />
         <div className="absolute inset-0 bg-black/40" />
