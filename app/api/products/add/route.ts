@@ -5,7 +5,7 @@ import { supabase } from "@/database/supbase"
 export async function POST(req: Request) 
 { 
   const formData = await req.formData()
-
+const bucket = process.env.SUPABASE_BUCKET || "product-images";
 const name = formData.get("name") as string 
 const description = formData.get("description") as string
  const price = parseFloat(formData.get("price") as string) 
@@ -30,8 +30,8 @@ const description = formData.get("description") as string
 const imagePaths: string[] = []
 
 for (const file of images) { 
-  const { data: uploadedImage, error: uploadError } = await supabase.storage
-  .from("product-images")
+ const { data: uploadedImage, error: uploadError } = await supabase.storage
+  .from(bucket)
   .upload(`products/${Date.now()}-${file.name}`, file, {
     cacheControl: "3600",
     upsert: false,
@@ -42,9 +42,7 @@ if (uploadError) {
   return NextResponse.json({ success: false, error: uploadError.message }, { status: 500 });
 }
 
-const publicUrl = supabase.storage
-  .from("product-images")
-  .getPublicUrl(uploadedImage.path).data.publicUrl;
+const publicUrl = supabase.storage.from(bucket).getPublicUrl(uploadedImage.path).data.publicUrl;
 
 imagePaths.push(publicUrl);
 const { data, error } = await supabase .from("products") .insert([ { name, description, price, colors, features, image_paths: imagePaths, category, artisan, in_stock, featured, published, stock_quantity, width, height, depth, weight, meta_title, meta_description, slug, sku } ])
