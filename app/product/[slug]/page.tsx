@@ -13,7 +13,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
     .from("products")
     .select("*")
     .eq("slug", params.slug)
-    .limit(1).maybeSingle();
+    .single()
 
   if (!product || error) {
     return (
@@ -27,18 +27,12 @@ export default async function ProductPage({ params }: { params: { slug: string }
 }
 
 // This makes sure Next.js knows what slugs to build
-export const dynamicParams = true; // optional: allows dynamic routes
+export async function generateStaticParams() {
+  const { data: products } = await supabase
+    .from("products")
+    .select("slug");
+  return (products || []).map((product) => ({
+    slug: product.slug,
+  }));
 
-export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const { data: products } = await supabase.from("products").select("slug")
-  if (!products) return [];
-
-return products.map((product) => ({
-  slug: product.slug,
-}))
-
-}
-function single() {
-  throw new Error("Function not implemented.");
-}
-
+ }
