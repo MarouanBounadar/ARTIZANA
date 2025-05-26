@@ -31,7 +31,8 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  if (isAdminPage) return null
+  if (isAdminPage) 
+    return null
 
   return (
     <header
@@ -101,13 +102,13 @@ export function Navbar() {
       <div
         className={cn(
     "fixed inset-0 z-50 flex flex-col bg-black p-6 transition-transform duration-300 ease-in-out h-screen overflow-y-auto",
-    isMenuOpen ? "translate-x-0" : "translate-x-full"
+    isMenuOpen ? "translate-x-0" : "-translate-x-full"
   )}
 
       >
         <div className="flex items-center justify-between">
           <Link href="/" className="font-serif text-2xl font-light tracking-wider text-white">
-            ARTIZANA MARRAKECH
+            ARTIZANIA MARRAKECH
           </Link>
           <button onClick={() => setIsMenuOpen(false)} aria-label="Close menu">
             <X className="h-6 w-6 text-white" />
