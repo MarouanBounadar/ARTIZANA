@@ -16,8 +16,20 @@ export default async function ProductPage({ params }: { params: { slug: string }
     .single()
 
   if (!product || error) {
-    return <div className="text-white text-center py-20">Product not found</div>
+    return (
+      <div className="text-white text-center py-20">
+        Product not found
+      </div>
+    )
   }
 
   return <ProductClient product={product as Product} />
+}
+
+// This makes sure Next.js knows what slugs to build
+export async function generateStaticParams() {
+  const { data: products } = await supabase.from("products").select("slug")
+  return (products || []).map((product) => ({
+    slug: product.slug,
+  }))
 }
