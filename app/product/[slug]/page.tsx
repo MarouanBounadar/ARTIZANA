@@ -13,7 +13,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
     .from("products")
     .select("*")
     .eq("slug", params.slug)
-    .single()
+    .limit(1).maybeSingle();
 
   if (!product || error) {
     return (
@@ -36,4 +36,9 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
 return products.map((product) => ({
   slug: product.slug,
 }))
+
 }
+function single() {
+  throw new Error("Function not implemented.");
+}
+
