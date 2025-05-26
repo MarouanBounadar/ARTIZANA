@@ -100,9 +100,9 @@ export function Navbar() {
       {/* Mobile Menu */}
       <div
         className={cn(
-          "fixed inset-0 z-50 flex flex-col bg-black p-6 transition-transform duration-300 ease-in-out lg:hidden",
-          isMenuOpen ? "translate-x-0" : "-translate-x-full",
-        )}
+  "fixed inset-0 z-50 flex flex-col bg-black p-6 transition-transform duration-300 ease-in-out",
+  isMenuOpen ? "translate-x-0" : "translate-x-full"
+)}
       >
         <div className="flex items-center justify-between">
           <Link href="/" className="font-serif text-2xl font-light tracking-wider text-white">
