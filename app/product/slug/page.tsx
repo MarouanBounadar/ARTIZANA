@@ -1,6 +1,6 @@
 // app/product/[slug]/page.tsx
 import { createClient } from "@supabase/supabase-js"
-import ProductClient from "../ProductClient"
+import ProductClient from "./ProductClient"
 import { Product } from "@/lib/store"
 
 const supabase = createClient(
