@@ -1,4 +1,3 @@
-// app/product/[slug]/page.tsx
 import { createClient } from "@supabase/supabase-js"
 import ProductClient from "./ProductClient"
 import { Product } from "@/lib/store"
@@ -18,7 +17,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
   if (!product || error) {
     return (
       <div className="text-white text-center py-20">
-        Product not found
+        <h1>Product not found</h1>
       </div>
     )
   }
@@ -26,5 +25,11 @@ export default async function ProductPage({ params }: { params: { slug: string }
   return <ProductClient product={product as Product} />
 }
 
-// This makes sure Next.js knows what slugs to build
-export const dynamic = "force-dynamic"
+// This ensures static paths are generated for each product
+export async function generateStaticParams() {
+  const { data: products } = await supabase.from("products").select("slug")
+
+  return (products || []).map((product) => ({
+    slug: product.slug,
+  }))
+}
