@@ -12,9 +12,10 @@ import { useToast } from "@/hooks/use-toast"
 
 
 export default function ProductClient({ product }: { product: Product }) {
+  const products = useStore.getState().products
   const { addToCart } = useStore()
   const { toast } = useToast()
-const { products } = useStore();
+
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || "")
   const [quantity, setQuantity] = useState(1)
   const [activeImage, setActiveImage] = useState(0)

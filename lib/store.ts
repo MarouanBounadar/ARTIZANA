@@ -36,7 +36,8 @@ export type Artisan = {
 }
 
 // Initial data - defined before store creation
-const initialProducts: Product[] = [
+export const initialProducts: Product[] = [
+
   {
     id: 1,
     name: "Handcrafted Leather Tote",
@@ -204,7 +205,8 @@ const initialProducts: Product[] = [
   },
 ]
 
-const initialArtisans: Artisan[] = [
+export const initialArtisans: Artisan[] = [
+
   {
     id: 1,
     name: "Mohammed Khalid",
