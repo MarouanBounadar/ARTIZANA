@@ -27,12 +27,4 @@ export default async function ProductPage({ params }: { params: { slug: string }
 }
 
 // This makes sure Next.js knows what slugs to build
-export async function generateStaticParams() {
-  const { data: products } = await supabase
-    .from("products")
-    .select("slug");
-  return (products || []).map((product) => ({
-    slug: product.slug,
-  }));
-
- }
+export const dynamic = "force-dynamic"
