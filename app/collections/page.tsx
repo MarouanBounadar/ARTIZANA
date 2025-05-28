@@ -12,10 +12,10 @@ type Product = {
   id: string
   name: string
   description: string
-  price: number
+  price: string
   colors: string[]
   features: string[]
-  imagePaths: string[]
+  images: string[]
   inStock: boolean
   slug: string // <-- Add this line
 
@@ -48,7 +48,7 @@ type Product = {
   src="/images/LOGO1.png"
   alt="Logo top-left"
   width={120}
-  height={60}
+  height={0}
   className="absolute top-4 left-4 opacity-100 z-10 "
 />
         <div className="absolute inset-0 bg-black/40" />
@@ -106,7 +106,7 @@ type Product = {
                 <Link href={`/product/${product.slug}`}>
                   <div className="relative aspect-square overflow-hidden">
                     <Image
-  src={product.imagePaths[0] || "/placeholder.svg"}
+  src={product.images[0] || "/placeholder.svg"}
   alt={product.name}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
