@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 
 
 type Product = {
-  id: string
+  id: number
   name: string
   description: string
   price: string
@@ -20,22 +20,23 @@ type Product = {
   slug: string // <-- Add this line
 
 }
-
-  export default function CollectionsPage() {
-  const [products, setProducts] = useState<Product[]>([])
+export default function CollectionsPage() {
+  const { setProducts } = useStore()
+  const [products, setLocalProducts] = useState<Product[]>([])
 
   useEffect(() => {
-    const loadProducts = async () => {
+    const load = async () => {
       const res = await fetch("/api/products")
       const data = await res.json()
-      setProducts(data)
+      setLocalProducts(data)
+      setProducts(data) // Hydrate Zustand store
     }
-    loadProducts()
+    load()
   }, [])
 
-  const featuredProducts = products.filter(p => p.inStock).slice(0, 8)
+  const featuredProducts = products.filter((p) => p.inStock).slice(0, 8)
 
-
+  
 
   // Get featured products
   
