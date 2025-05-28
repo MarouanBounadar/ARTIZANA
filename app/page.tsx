@@ -9,11 +9,18 @@ import { useStore, useHydrateStore } from "@/lib/store"
 
 export default function Home() {
   const [mounted, setMounted] = useState(false)
-  const { products } = useStore()
+ const { products, setProducts } = useStore()
 
   // Hydrate the store on the client side
   useHydrateStore()
-
+useEffect(() => {
+    const loadProducts = async () => {
+      const res = await fetch("/api/products")
+      const data = await res.json()
+      setProducts(data)
+    }
+    loadProducts()
+  }, [])
   // Get featured products safely
   const featuredProducts = mounted ? products.filter((product) => product.inStock).slice(0, 3) : Array(3).fill(null)
 
