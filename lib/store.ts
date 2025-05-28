@@ -2,7 +2,7 @@ import { create } from "zustand"
 import { persist, createJSONStorage } from "zustand/middleware"
 
 export type CartItem = {
-  id: string
+  id: number
   name: string
   price: string
   color: string
@@ -11,7 +11,7 @@ export type CartItem = {
 }
 
 export type Product = {
-  id: string
+  id: number
   name: string
   price: string
   description?: string
@@ -39,7 +39,7 @@ export type Artisan = {
 export const initialProducts: Product[] = [
 
   {
-    id: "1",
+    id: 1,
     name: "Handcrafted Leather Tote",
     price: "1,200 MAD",
     description:
@@ -65,7 +65,7 @@ export const initialProducts: Product[] = [
     slug: "handcrafted-leather-tote",
   },
   {
-    id:" 2",
+    id:2,
     name: "Embroidered Clutch",
     price: "850 MAD",
     description:
@@ -85,7 +85,7 @@ export const initialProducts: Product[] = [
     slug: "embroidered-clutch",
   },
   {
-    id: "3",
+    id: 3,
     name: "Moroccan Leather Pouf",
     price: "1,500 MAD",
     description:
@@ -105,7 +105,7 @@ export const initialProducts: Product[] = [
     slug: "moroccan-leather-pouf",
   },
   {
-    id: "4",
+    id: 4,
     name: "Handwoven Basket Bag",
     price: "950 MAD",
     description:
@@ -124,7 +124,7 @@ export const initialProducts: Product[] = [
     slug: "handwoven-basket-bag",
   },
   {
-    id: "5",
+    id: 5,
     name: "Embellished Leather Slippers",
     price: "780 MAD",
     description:
@@ -144,7 +144,7 @@ export const initialProducts: Product[] = [
     slug: "embellished-leather-slippers",
   },
   {
-    id: "6",
+    id: 6,
     name: "Ceramic Decorative Plate",
     price: "650 MAD",
     description:
@@ -164,7 +164,7 @@ export const initialProducts: Product[] = [
     slug: "ceramic-decorative-plate",
   },
   {
-    id: "7",
+    id: 7,
     name: "Handwoven Wool Throw",
     price: "1,100 MAD",
     description:
@@ -184,7 +184,7 @@ export const initialProducts: Product[] = [
     slug: "handwoven-wool-throw",
   },
   {
-    id: "8",
+    id: 8,
     name: "Brass Lantern",
     price: "890 MAD",
     description:
@@ -271,8 +271,8 @@ type State = {
   user: { name: string; email: string } | null
   searchQuery: string
   addToCart: (product: Product, color: string, quantity: number) => void
-  removeFromCart: (id: string) => void
-  updateCartItemQuantity: (id: string, quantity: number) => void
+  removeFromCart: (id: number) => void
+  updateCartItemQuantity: (id: number, quantity: number) => void
   clearCart: () => void
   login: (email: string, password: string) => Promise<boolean>
   logout: () => void
