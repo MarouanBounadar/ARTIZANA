@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useStore,CartItem } from "@/lib/store"
 import { useRouter } from "next/navigation"
-
+import emailjs from '@emailjs/browser';
 export default function CheckoutPage() {
   const { cart, clearCart } = useStore()
   const [name, setName] = useState("")
@@ -16,38 +16,46 @@ export default function CheckoutPage() {
   const tax = 120
   const total = subtotal + shipping + tax
 
-  const handlePlaceOrder = async () => {
+  const handlePlaceOrder = () => {
   if (!name || !email || !address) {
-    alert("Please fill out all fields before placing the order.")
-    return
+    alert("Please fill out all fields before placing the order.");
+    return;
   }
 
   const itemsList = cart
-    .map((item) => `${item.name} (${item.color}) × ${item.quantity}`)
-    .join("<br>")
+    .map((item) => `${item.name} (${item.color}) x ${item.quantity}`)
+    .join(", ");
 
-  const res = await fetch("/api/send-order", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name,
-      email,
-      address,
-      itemsList,
-      total,
-    }),
-  })
+  const total = cart.reduce(
+    (sum, item) => sum + parseFloat(item.price) * item.quantity,
+    0
+  ) + 100 + 120; // example shipping + tax
 
-  if (res.ok) {
-    alert("Order email sent!")
-    clearCart()
-    router.push("/thank-you") // Optional: redirect after success
-  } else {
-    alert("Something went wrong sending the email.")
-  }
-}
+  const templateParams = {
+    name,
+    email,
+    address,
+    itemsList,
+    total,
+  };
+
+  emailjs
+    .send(
+      'service_6cixol3',      // Replace with your EmailJS service ID
+      'template_oyga48p',     // Replace with your saved Template ID
+      templateParams,
+      'rxhttctXczODOm80E'       // Replace with your EmailJS public key
+    )
+    .then((response) => {
+      alert('Order email sent!');
+      clearCart();             // Optional: clear cart
+      router.push('/thank-you'); // Redirect to thank-you page
+    })
+    .catch((error) => {
+      console.error('EmailJS error:', error);
+      alert('Something went wrong. Please try again.');
+    });
+};
 
   return (
     <div className="container mx-auto py-12 px-4 text-white">
