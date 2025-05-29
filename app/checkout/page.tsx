@@ -34,7 +34,7 @@ Items: ${itemsList}
 Total: ${total} MAD
     `.trim()
 
-    const whatsappNumber = "2126XXXXXXXX" // Replace with your WhatsApp number
+    const whatsappNumber = "212630537553" // Replace with your WhatsApp number
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
     clearCart() // Optional: clear cart after placing order
