@@ -1,12 +1,15 @@
-// app/checkout/page.tsx
 "use client"
 
-import Link from "next/link"
-import { useStore } from "@/lib/store"
-import { Button } from "@/components/ui/button"
+import { useState } from "react"
+import { useStore,CartItem } from "@/lib/store"
+import { useRouter } from "next/navigation"
 
 export default function CheckoutPage() {
   const { cart, clearCart } = useStore()
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [address, setAddress] = useState("")
+  const router = useRouter()
 
   const subtotal = cart.reduce((sum, item) => sum + parseFloat(item.price) * item.quantity, 0)
   const shipping = 100
@@ -14,84 +17,95 @@ export default function CheckoutPage() {
   const total = subtotal + shipping + tax
 
   const handlePlaceOrder = () => {
-    alert("Order placed successfully!")
-    clearCart()
+    if (!name || !email || !address) {
+      alert("Please fill out all fields before placing the order.")
+      return
+    }
+
+    const itemsList = cart
+      .map((item) => `${item.name} (${item.color}) x ${item.quantity}`)
+      .join(", ")
+
+    const message = `
+Name: ${name}
+Email: ${email}
+Address: ${address}
+Items: ${itemsList}
+Total: ${total} MAD
+    `.trim()
+
+    const whatsappNumber = "2126XXXXXXXX" // Replace with your WhatsApp number
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+    clearCart() // Optional: clear cart after placing order
+    window.open(whatsappURL, "_blank")
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="container mx-auto px-4 py-20">
-        <h1 className="text-4xl font-serif text-center mb-12">Checkout</h1>
+    <div className="container mx-auto py-12 px-4 text-white">
+      <h1 className="text-4xl font-serif text-center mb-12">Checkout</h1>
 
-        {cart.length === 0 ? (
-          <div className="text-center">
-            <p className="text-white/70">Your cart is empty.</p>
-            <Button asChild className="mt-6 bg-gold-500 text-black hover:bg-gold-600">
-              <Link href="/collections">Continue Shopping</Link>
-            </Button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Order Summary */}
-            <div className="space-y-6">
-              <h2 className="text-2xl font-serif border-b border-gold-500 pb-2">Order Summary</h2>
-              {cart.map((item) => (
-                <div key={item.id} className="flex items-center justify-between border-b border-white/10 pb-4">
-                  <div>
-                    <h3 className="text-white">{item.name}</h3>
-                    <p className="text-sm text-white/70">{item.color} × {item.quantity}</p>
-                  </div>
-                  <p>{parseFloat(item.price) * item.quantity} MAD</p>
-                </div>
-              ))}
-              <div className="pt-6 space-y-2 border-t border-gold-500/20">
-                <p className="flex justify-between">
-                  <span>Subtotal</span>
-                  <span>{subtotal} MAD</span>
-                </p>
-                <p className="flex justify-between">
-                  <span>Shipping</span>
-                  <span>{shipping} MAD</span>
-                </p>
-                <p className="flex justify-between">
-                  <span>Tax</span>
-                  <span>{tax} MAD</span>
-                </p>
-                <p className="flex justify-between text-lg font-medium pt-2 border-t border-gold-500/40">
-                  <span>Total</span>
-                  <span>{total} MAD</span>
-                </p>
-              </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        {/* Order Summary */}
+        <div>
+          <h2 className="text-2xl font-serif border-b border-gold-500 pb-2 mb-4">Order Summary</h2>
+          {cart.map((item, idx) => (
+            <div key={idx} className="flex justify-between py-2 border-b border-white/10">
+              <span>{item.name}</span>
+              <span>{parseFloat(item.price) * item.quantity} MAD</span>
             </div>
-
-            {/* Form */}
-            <div className="space-y-6">
-              <h2 className="text-2xl font-serif border-b border-gold-500 pb-2">Your Info</h2>
-              <input
-                type="text"
-                placeholder="Full Name"
-                className="w-full p-3 bg-black border border-gold-500/30 rounded-md text-white"
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                className="w-full p-3 bg-black border border-gold-500/30 rounded-md text-white"
-              />
-              <input
-                type="text"
-                placeholder="Shipping Address"
-                className="w-full p-3 bg-black border border-gold-500/30 rounded-md text-white"
-              />
-
-              <Button
-                className="w-full bg-gold-500 text-black hover:bg-gold-600 mt-6"
-                onClick={handlePlaceOrder}
-              >
-                Place Order
-              </Button>
+          ))}
+          <div className="mt-4 space-y-1">
+            <div className="flex justify-between">
+              <span>Subtotal</span>
+              <span>{subtotal} MAD</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Shipping</span>
+              <span>{shipping} MAD</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Tax</span>
+              <span>{tax} MAD</span>
+            </div>
+            <div className="flex justify-between font-bold border-t border-gold-500 pt-2">
+              <span>Total</span>
+              <span>{total} MAD</span>
             </div>
           </div>
-        )}
+        </div>
+
+        {/* Form */}
+        <div>
+          <h2 className="text-2xl font-serif border-b border-gold-500 pb-2 mb-4">Your Info</h2>
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full p-3 mb-4 bg-black border border-gold-500/30 rounded-md text-white"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-3 mb-4 bg-black border border-gold-500/30 rounded-md text-white"
+          />
+          <input
+            type="text"
+            placeholder="Shipping Address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            className="w-full p-3 mb-4 bg-black border border-gold-500/30 rounded-md text-white"
+          />
+          <button
+            onClick={handlePlaceOrder}
+            className="w-full p-3 bg-gold-500 text-black hover:bg-gold-600 rounded-md mt-2"
+          >
+            Place Order
+          </button>
+        </div>
       </div>
     </div>
   )
