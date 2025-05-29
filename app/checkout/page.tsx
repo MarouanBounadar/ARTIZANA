@@ -16,30 +16,38 @@ export default function CheckoutPage() {
   const tax = 120
   const total = subtotal + shipping + tax
 
-  const handlePlaceOrder = () => {
-    if (!name || !email || !address) {
-      alert("Please fill out all fields before placing the order.")
-      return
-    }
-
-    const itemsList = cart
-      .map((item) => `${item.name} (${item.color}) x ${item.quantity}`)
-      .join(", ")
-
-    const message = `
-Name: ${name}
-Email: ${email}
-Address: ${address}
-Items: ${itemsList}
-Total: ${total} MAD
-    `.trim()
-
-    const whatsappNumber = "212630537553" // Replace with your WhatsApp number
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-    clearCart() // Optional: clear cart after placing order
-    window.open(whatsappURL, "_blank")
+  const handlePlaceOrder = async () => {
+  if (!name || !email || !address) {
+    alert("Please fill out all fields before placing the order.")
+    return
   }
+
+  const itemsList = cart
+    .map((item) => `${item.name} (${item.color}) × ${item.quantity}`)
+    .join("<br>")
+
+  const res = await fetch("/api/send-order", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      address,
+      itemsList,
+      total,
+    }),
+  })
+
+  if (res.ok) {
+    alert("Order email sent!")
+    clearCart()
+    router.push("/thank-you") // Optional: redirect after success
+  } else {
+    alert("Something went wrong sending the email.")
+  }
+}
 
   return (
     <div className="container mx-auto py-12 px-4 text-white">
