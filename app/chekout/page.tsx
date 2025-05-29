@@ -1,3 +1,4 @@
+// app/checkout/page.tsx
 "use client"
 
 import Link from "next/link"
@@ -63,7 +64,7 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            {/* Contact / Fake Form */}
+            {/* Form */}
             <div className="space-y-6">
               <h2 className="text-2xl font-serif border-b border-gold-500 pb-2">Your Info</h2>
               <input
