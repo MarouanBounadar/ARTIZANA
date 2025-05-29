@@ -10,7 +10,7 @@ export default function CheckoutPage() {
   const [email, setEmail] = useState("")
   const [address, setAddress] = useState("")
   const router = useRouter()
-
+const [phone, setPhone] = useState("");
   const subtotal = cart.reduce((sum, item) => sum + parseFloat(item.price) * item.quantity, 0)
   const shipping = 100
   const tax = 120
@@ -37,6 +37,8 @@ export default function CheckoutPage() {
     address,
     itemsList,
     total,
+    phone,
+
   };
 
   emailjs
@@ -115,6 +117,13 @@ export default function CheckoutPage() {
             onChange={(e) => setAddress(e.target.value)}
             className="w-full p-3 mb-4 bg-black border border-gold-500/30 rounded-md text-white"
           />
+          <input
+  type="text"
+  placeholder="Phone Number"
+  value={phone}
+  onChange={(e) => setPhone(e.target.value)}
+  className="w-full p-3 bg-black border border-gold-500/30 rounded-md text-white"
+/>
           <button
             onClick={handlePlaceOrder}
             className="w-full p-3 bg-gold-500 text-black hover:bg-gold-600 rounded-md mt-2"
