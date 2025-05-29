@@ -121,7 +121,13 @@ const [phone, setPhone] = useState("");
             onChange={(e) => setAddress(e.target.value)}
             className="w-full p-3 mb-4 bg-black border border-gold-500/30 rounded-md text-white"
           />
-          
+          <input
+  type="text"
+  placeholder="Phone Number"
+  value={phone}
+  onChange={(e) => setPhone(e.target.value)}
+  className="w-full p-3 bg-black border border-gold-500/30 rounded-md text-white"
+/>
           <button
             onClick={handlePlaceOrder}
             className="w-full p-3 bg-gold-500 text-black hover:bg-gold-600 rounded-md mt-2"
