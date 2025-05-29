@@ -115,7 +115,11 @@ export default function CartPage() {
                 </div>
               </div>
 
-              <Button className="mt-6 w-full bg-gold-500 text-black hover:bg-gold-600">Proceed to Checkout</Button>
+              <Link href="/checkout" passHref>
+  <Button className="w-full bg-gold-500 text-black hover:bg-gold-600">
+    Proceed to Checkout
+  </Button>
+</Link>
 
               <div className="mt-4 text-center">
                 <Link href="/collections" className="text-sm text-gold-400 hover:text-gold-300">
