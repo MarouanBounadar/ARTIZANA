@@ -60,13 +60,16 @@ const [phone, setPhone] = useState("");
 };
 
   return (
-    <div className="container mx-auto py-12 px-4 text-white">
-      <h1 className="text-4xl font-serif text-center mb-12">Checkout</h1>
+      <div className="min-h-screen bg-black text-white px-4 py-12">
+    {/* Centered Checkout Title */}
+    <h1 className="text-center text-4xl font-bold text-gold-500 mb-10">Checkout</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* Order Summary */}
-        <div>
-          <h2 className="text-2xl font-serif border-b border-gold-500 pb-2 mb-4">Order Summary</h2>
+      
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+      {/* Order Summary */}
+      <div>
+        <h2 className="text-2xl font-semibold mb-4">Order Summary</h2>
+
           {cart.map((item, idx) => (
             <div key={idx} className="flex justify-between py-2 border-b border-white/10">
               <span>{item.name}</span>
@@ -95,7 +98,7 @@ const [phone, setPhone] = useState("");
 
         {/* Form */}
         <div>
-          <h2 className="text-2xl font-serif border-b border-gold-500 pb-2 mb-4">Your Info</h2>
+        <h2 className="text-2xl font-semibold mb-4">Your Info</h2>
           <input
             type="text"
             placeholder="Full Name"
