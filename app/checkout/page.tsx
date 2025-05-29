@@ -61,7 +61,7 @@ const [phone, setPhone] = useState("");
 
   return (
     <div className="container mx-auto py-12 px-4 text-white">
-      <h1 className="text-4xl font-serif text-center mb-12">Checkout</h1>
+     <h1 className="text-4xl font-bold text-center mt-16 mb-8">Checkout</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         {/* Order Summary */}
